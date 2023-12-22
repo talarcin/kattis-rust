@@ -1,14 +1,27 @@
-pub fn add(left: usize, right: usize) -> usize {
-    left + right
+use std::collections::HashSet;
+
+pub struct Node {
+    value: usize,
+    adjacent: HashSet<Node>,
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+pub struct Graph {
+    nodes: HashSet<Node>,
+}
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
+impl Node {
+    fn value(&self) -> &usize {
+        &self.value
+    }
+
+    fn adj(&self) -> &HashSet<Node> {
+        &self.adjacent
     }
 }
+
+impl Graph {}
+
+pub fn solve() -> String {}
+
+#[cfg(test)]
+mod tests {}

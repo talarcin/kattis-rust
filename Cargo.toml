@@ -6,6 +6,7 @@ members=[
     "week6",
     "week7",
     "icy_itinerary",
+    "graph",
     "week8",
     "input_reader",
 ]
