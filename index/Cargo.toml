@@ -11,6 +11,7 @@ input_reader = { path = "../input_reader" }
 week5 = { path = "../week5" }
 week7 = { path = "../week7" }
 icy_itinerary = {path= "../icy_itinerary"}
+graph = {path="../graph"}
 week8 = { path = "../week8" }
 
 
