@@ -29,7 +29,7 @@ pub fn make_complementary_graph(graph: &Graph) -> Graph {
 }
 
 pub struct Graph {
-    nodes: HashMap<usize, HashSet<usize>>,
+    pub nodes: HashMap<usize, HashSet<usize>>,
 }
 
 impl Graph {
@@ -50,16 +50,16 @@ impl Graph {
         self.nodes.get_mut(v).unwrap().insert(*u);
     }
 
-    fn get_nodes(self: &Self) -> Vec<usize> {
-        let mut node_vec = Vec::new();
-        for (u, _) in &self.nodes {
-            node_vec.push(*u);
+    pub fn get_nodes(self: &Self) -> HashSet<usize> {
+        let mut node_set = HashSet::new();
+        for (node, _) in &self.nodes {
+            node_set.insert(*node);
         }
 
-        node_vec
+        node_set
     }
 
-    fn size(&self) -> usize {
+    pub fn size(&self) -> usize {
         self.nodes.values().count()
     }
 }
