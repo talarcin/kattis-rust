@@ -1,11 +1,21 @@
 use graph::{make_complementary_graph, make_graph, Graph};
 
-pub fn dfs(graph: &Graph, u: &usize, visited: &mut Vec<bool>) {
+pub fn dfs(graph: &Graph, u: &usize, visited: &mut Vec<bool>) -> bool {
+    if visited[*u] {
+        return true;
+    }
+
     visited[*u] = true;
 
     for v in graph.nodes.get(u).unwrap() {
         dfs(graph, v, visited);
     }
+
+    if !all_nodes_visited(&visited) {
+        return false;
+    }
+
+    true
 }
 
 pub fn algorithm(lines: Vec<String>) -> bool {
@@ -25,10 +35,16 @@ pub fn algorithm(lines: Vec<String>) -> bool {
         road_graph
     };
 
-    // 4. Start depth-first search at house 1 and current graph^
-    dfs(&current_graph, &1, &mut visited);
-    for v in visited {
-        if !v {
+    // 4. Start depth-first search at house 1 and current graph
+    let done = dfs(&current_graph, &1, &mut visited);
+
+    // 5. First search was not complete, so go over to other graph?
+    if !done {}
+}
+
+pub fn all_nodes_visited(visited: &Vec<bool>) -> bool {
+    for i in 1..visited.len() {
+        if !visited[i] {
             return false;
         }
     }
@@ -74,5 +90,12 @@ mod tests {
         ];
 
         assert_eq!(algorithm(simple), true);
+    }
+
+    #[test]
+    fn test_separated_graph() {
+        let separated = vec!["4 2".to_string(), "1 2".to_string(), "3 4".to_string()];
+
+        assert_eq!(algorithm(separated), false);
     }
 }
