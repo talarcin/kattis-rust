@@ -34,10 +34,10 @@ pub fn solve(lines: Vec<String>) -> String {
                 && (y == None || adj.get(y.unwrap()).unwrap().contains(&z))
             {
                 snow_list.push_front(road_list.pop_back().unwrap());
-                let pre_x = road_list.back().unwrap();
+                let pre_x = road_list.back();
 
-                if adj.get(pre_x).unwrap().contains(&z) {
-                    road_list.push_back(*pre_x);
+                if adj.get(pre_x.unwrap()).unwrap().contains(&z) {
+                    road_list.push_back(z);
                 } else {
                     snow_list.push_front(z);
                 }
@@ -75,7 +75,7 @@ pub fn solve(lines: Vec<String>) -> String {
                 let post_x = road_list.front().unwrap();
 
                 if adj.get(post_x).unwrap().contains(&z) {
-                    road_list.push_front(*post_x);
+                    road_list.push_front(z);
                 } else {
                     snow_list.push_back(z);
                 }
@@ -146,24 +146,40 @@ mod tests {
     #[test]
     fn test_solve() {
         let inputs = vec![
-            vec![
-                "4 4".to_string(),
-                "1 2".to_string(),
-                "1 3".to_string(),
-                "1 4".to_string(),
-                "3 4".to_string(),
-            ],
-            vec![
-                "4 4".to_string(),
-                "1 2".to_string(),
-                "1 3".to_string(),
-                "1 4".to_string(),
-                "3 4".to_string(),
-            ],
+            (
+                vec![
+                    "4 4".to_string(),
+                    "1 2".to_string(),
+                    "1 3".to_string(),
+                    "1 4".to_string(),
+                    "3 4".to_string(),
+                ],
+                "1 4 2 3".to_string(),
+            ),
+            (vec!["5 0".to_string()], "1 2 4 5 3".to_string()),
+            (
+                vec![
+                    "5 3".to_string(),
+                    "2 3".to_string(),
+                    "3 4".to_string(),
+                    "3 5".to_string(),
+                ],
+                "1 4 5 2 3".to_string(),
+            ),
+            (
+                vec![
+                    "5 4".to_string(),
+                    "1 2".to_string(),
+                    "2 3".to_string(),
+                    "3 4".to_string(),
+                    "4 5".to_string(),
+                ],
+                "1 2 3 4 5".to_string(),
+            ),
         ];
 
-        for lines in inputs {
-            solve(lines);
+        for (lines, expected) in inputs {
+            assert_eq!(solve(lines), expected);
         }
     }
 }
